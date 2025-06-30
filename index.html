@@ -1,139 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Store</title>
-  <style>
-    :root {
-      --primary: #111;
-      --accent: #b88d3a;
-      --background: #f5f5f5;
-      --card-bg: #fff;
-      --radius: 10px;
-      --shadow: 0 4px 12px rgba(0,0,0,0.1);
-      --transition: all 0.3s ease;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: var(--background); }
-    header { display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--primary); color: #fff; }
-    header h1 { font-size: 1.5rem; }
-    header button { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Brand Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --brand-color: #264653;
+        --accent-color: #2a9d8f;
+        --highlight-color: #e9c46a;
+        --warm-color: #f4a261;
+        --danger-color: #e76f51;
+        --light-bg: #e0fbfc;
+        --text-color: #212121;
+      }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-    }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+      }
 
-    .product {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: var(--transition);
-    }
+      body {
+        background-color: var(--light-bg);
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
 
-    .product img { width: 100%; height: 150px; object-fit: cover; }
-    .product .info { padding: 0.5rem 1rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .product h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-    .product p { font-size: 0.85rem; margin-bottom: 0.5rem; color: #555; }
-    .product .price { font-weight: bold; margin-bottom: 0.5rem; }
-    .product button {
-      background: var(--accent); color: #fff;
-      border: none; padding: 0.5rem;
-      border-radius: var(--radius); cursor: pointer;
-    }
+      header {
+        background: linear-gradient(90deg, var(--brand-color), var(--accent-color));
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.8em;
+        font-weight: 600;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        animation: fadeSlide 0.6s ease;
+      }
 
-    #modal, #cartPanel {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center;
-    }
+      main {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color: var(--light-bg);
+        animation: fadeSlide 0.8s ease;
+      }
 
-    #modal .content, #cartPanel .content {
-      background: #fff; padding: 1rem; border-radius: var(--radius);
-      max-width: 500px; width: 90%; max-height: 90%; overflow-y: auto;
-    }
+      .iframe-container {
+        width: 100%;
+        max-width: 1200px;
+        height: 85vh;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        border-radius: 12px;
+        overflow: hidden;
+        background: white;
+        transition: box-shadow 0.3s ease;
+      }
 
-    #modal img { width: 100%; height: auto; margin-bottom: 1rem; }
-    #modal button, #cartPanel button.close {
-      background: var(--primary); color: #fff;
-      border: none; padding: 0.5rem 1rem;
-      border-radius: var(--radius); cursor: pointer; margin-top: 1rem;
-    }
+      .iframe-container:hover {
+        box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+      }
 
-    #cartPanel .cart-items { margin-top: 1rem; }
-    .cart-item {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.5rem 0; border-bottom: 1px solid #ccc;
-    }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
 
-    .cart-controls button {
-      background: var(--accent); color: #fff;
-      border: none; padding: 0.2rem 0.5rem;
-      border-radius: 4px; margin: 0 2px; cursor: pointer;
-    }
+      footer {
+        background: linear-gradient(90deg, var(--brand-color), var(--accent-color));
+        color: white;
+        text-align: center;
+        padding: 16px;
+        font-size: 0.95em;
+      }
 
-    .summary {
-      margin-top: 1rem; padding: 1rem; background: #f9f9f9; border-radius: var(--radius);
-    }
+      footer a {
+        color: var(--highlight-color);
+        margin: 0 10px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
 
-    .highlight { font-size: 1.2rem; color: var(--accent); font-weight: bold; }
+      footer a:hover {
+        color: var(--warm-color);
+      }
 
-    footer {
-      background: var(--primary); color: #fff; padding: 1rem;
-      display: flex; flex-direction: column; align-items: center;
-      gap: 0.5rem;
-    }
+      @keyframes fadeSlide {
+        from { opacity: 0; transform: translateY(-10px);}
+        to { opacity: 1; transform: translateY(0);}
+      }
 
-    footer a { color: var(--accent); text-decoration: none; margin: 0 0.5rem; }
-    footer .credit {
-      background: #222; padding: 0.5rem 1rem; border-radius: var(--radius);
-      margin-top: 0.5rem;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Brand Store</h1>
-    <button id="openCart">🛒 Cart (<span id="cartCount">0</span>)</button>
-  </header>
+      @media (max-width: 768px) {
+        header {
+          font-size: 1.5em;
+          padding: 16px;
+        }
 
-  <div class="grid" id="productGrid"></div>
-
-  <!-- Modal -->
-  <div id="modal">
-    <div class="content" id="modalContent"></div>
-  </div>
-
-  <!-- Cart Panel -->
-  <div id="cartPanel">
-    <div class="content">
-      <button class="close" id="closeCart">Close</button>
-      <h2>Your Cart</h2>
-      <div class="cart-items" id="cartItems"></div>
-      <div class="summary" id="billSummary"></div>
-      <button id="buyNow">Buy Now</button>
-    </div>
-  </div>
-
-  <footer>
-    <div>
-      <a href="https://instagram.com/brand" target="_blank">Instagram</a>
-      <a href="https://wa.me/yourwhatsappnumber" target="_blank">WhatsApp</a>
-    </div>
-    <div class="credit">
-      <a href="https://yourweblaunchdeskpage.com" target="_blank">WebLaunchDesk</a>
-      <a href="https://instagram.com/yourhandle" target="_blank">Instagram</a>
-      <a href="https://wa.me/yourwhatsappnumber" target="_blank">WhatsApp</a>
-    </div>
-  </footer>
-
-  <iframe id="checkoutFrame" style="display:none;width:100%;height:100vh;border:none;"></iframe>
-
-  <script src="app.js"></script>
-</body>
+        .iframe-container {
+          height: 80vh;
+          border-radius: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      My Brand Store
+    </header>
+    <main>
+      <div class="iframe-container">
+        <iframe src="https://script.google.com/macros/s/AKfycbwT3UaiQwbWsoiPPLFuAn3hfQwHDh8fm2iKC8nZHvALqiXpa6lVXiN2XrA6U6cytXrn/exec" title="My Brand Store"></iframe>
+      </div>
+    </main>
+    <footer>
+      <div>
+        <a href="https://instagram.com/yourbrand" target="_blank">Instagram</a>
+        <a href="https://wa.me/yourwhatsappnumber" target="_blank">WhatsApp</a>
+        <a href="https://yourwebsite.com" target="_blank">Website</a>
+      </div>
+    </footer>
+  </body>
 </html>
